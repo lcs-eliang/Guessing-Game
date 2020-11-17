@@ -14,21 +14,26 @@ struct ContentView: View {
     
     var body: some View {
         
-        VStack {
+        NavigationView {
             
-            Text("Guessing Game")
-            
-            Text("I'm thinking of a number between 1 and 100. Guess what it is!")
-            
-            TextField("Enter your guess here", text: $theUserGuess)
-            
-            Button("Submit Guess"){
-                // Check the guess
+            VStack {
+                
+                Text("Guessing Game")
+                
+                Text("I'm thinking of a number between 1 and 100. Guess what it is!")
+                
+                TextField("Enter your guess here", text: $theUserGuess)
+                
+                Button("Submit Guess"){
+                    // Check the guess
+                }
+                
+                Text("You guessed \(theUserGuess).")
+                
             }
-            
-            Text("You guessed \(theUserGuess).")
-            
+            .navigationTitle("Guessing Game")
         }
+        
     }
 }
 
