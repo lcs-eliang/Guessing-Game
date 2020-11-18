@@ -13,10 +13,15 @@ struct ContentView: View {
     @State private var theUserGuess = ""
     
     //The number that the user should guess
-    let target = Int.random(in: 1...100)
+    @State private var target = Int.random(in: 1...100)
     
     // Feedback to the user
     @State private var feedback = ""
+    
+    //Keep track of whether the game is over
+    @State private var gameOver = false
+
+
     var body: some View {
         
         NavigationView {
@@ -26,7 +31,7 @@ struct ContentView: View {
                 Text("I'm thinking of a number between 1 and 100. Guess what it is!")
                     .font(.title)
                     .padding(.bottom, 20.0)
-                    .padding(.horizontal, 5.0)
+                    .padding(.horizontal, 15.0)
                 
                 TextField("Enter your guess here", text: $theUserGuess)
                     .padding(.horizontal, 25.0)
@@ -37,11 +42,22 @@ struct ContentView: View {
                 }
                 .padding(.vertical)
                 
-                Text("You guessed \(theUserGuess)")
-                    .font(.title)
+                // Only show output once input has been provided
+                if theUserGuess.count > 0 {
                 
+                Text("you guess \(theUserGuess)")
+                    .font(.title)
+                    
                 Text("\(feedback)")
                     .font(.title)
+                
+                }
+                
+                if gameOver == true {
+                    Button("Reset Game") {
+                        resetGame()
+                    }
+                }
                 
                 Spacer()
                 
@@ -63,14 +79,41 @@ struct ContentView: View {
             feedback = "Please provide an integer between 1 and 100."
             return
         }
-        // Is the guess correct?
-        feedback = "You made a guess."
         
-}
+        if givenInteger == target{
+            feedback = "You guessed it!"
+                .font()
+            gameOver = true
+        }
+            
+        if givenInteger > target{
+            feedback = "Guess lower."
+        }
+        
+        if givenInteger < target{
+            feedback = "Guess higher."
+        }
+    }
+
+    // Reset the game
+    func resetGame(){
+        
+        // Pick a new random number
+        target = Int.random(in: 1...100)
+        
+        // Clear out the old feedback from the prior round
+        theUserGuess = ""
+        feedback = ""
+        
+        // The new game... is not over
+        gameOver = false
+        
+    }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
 }
