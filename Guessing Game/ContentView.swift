@@ -41,7 +41,7 @@ struct ContentView: View {
                     checkGuess()
                 }
                 .padding(.vertical)
-                
+               
                 // Only show output once input has been provided
                 if theUserGuess.count > 0 {
                 
@@ -79,10 +79,8 @@ struct ContentView: View {
             feedback = "Please provide an integer between 1 and 100."
             return
         }
-        
         if givenInteger == target{
             feedback = "You guessed it!"
-                .font()
             gameOver = true
         }
             
