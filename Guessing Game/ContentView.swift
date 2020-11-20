@@ -20,51 +20,53 @@ struct ContentView: View {
     
     //Keep track of whether the game is over
     @State private var gameOver = false
-
-
+    
+    
     var body: some View {
         
         NavigationView {
-            
             VStack {
-                
-                Text("I'm thinking of a number between 1 and 100. Guess what it is!")
-                    .font(.title)
-                    .padding(.bottom, 20.0)
-                    .padding(.horizontal, 15.0)
-                
-                TextField("Enter your guess here", text: $theUserGuess)
-                    .padding(.horizontal, 25.0)
-                
-                Button("Submit Guess"){
-                    // Check the guess
-                    checkGuess()
-                }
-                .padding(.vertical)
-               
-                // Only show output once input has been provided
-                if theUserGuess.count > 0 {
-                
-                Text("you guess \(theUserGuess)")
-                    .font(.title)
+                Form {
+                    Section {
+                    Text("I'm thinking of a number between 1 and 100. Guess what it is!")
+                        .font(.title3)
+    
+                    TextField("Enter your guess here", text: $theUserGuess)
+                        .keyboardType(.decimalPad)
+                    }
                     
-                Text("\(feedback)")
-                    .font(.title)
-                
-                }
-                
-                if gameOver == true {
-                    Button("Reset Game") {
-                        resetGame()
+                    Section {
+                        Button("                        Submit Guess"){
+                            // Check the guess
+                            checkGuess()
+                        }
+                    }
+                    
+                    Section {
+                        Text("History:\(theUserGuess)")
+                    }
+                    
+                    
+                    // Only show output once input has been provided
+                    if theUserGuess.count > 0 {
+                        
+                        Text("\(feedback)")
+                            .font(.title)
+                        
+                    }
+                    
+                    if gameOver == true {
+                        Button("Reset Game") {
+                            resetGame()
+                        }
                     }
                 }
-                
                 Spacer()
                 
             }
             .navigationTitle("Guessing Game")
         }
-        
+    
     }
     
     //Check what the user guessed against the target
@@ -83,7 +85,7 @@ struct ContentView: View {
             feedback = "You guessed it!"
             gameOver = true
         }
-            
+        
         if givenInteger > target{
             feedback = "Guess lower."
         }
@@ -92,7 +94,7 @@ struct ContentView: View {
             feedback = "Guess higher."
         }
     }
-
+    
     // Reset the game
     func resetGame(){
         
@@ -107,11 +109,12 @@ struct ContentView: View {
         gameOver = false
         
     }
+}
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
-}
-
 }
