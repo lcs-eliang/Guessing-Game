@@ -27,24 +27,33 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 Form {
+                    
                     Section {
-                    Text("I'm thinking of a number between 1 and 100. Guess what it is!")
-                        .font(.title3)
+                        Text("Guessing Game")
+                            .font(.title)
+                    }
+                    
+                    
+                    Section {
+                        Text("I'm thinking of a number between 1 and 100. Guess what it is!")
+                            .font(.title3)
     
-                    TextField("Enter your guess here", text: $theUserGuess)
-                        .keyboardType(.decimalPad)
+                        TextField("Enter your guess here", text: $theUserGuess)
+                            .keyboardType(.decimalPad)
                     }
                     
                     Section {
                         Button("                        Submit Guess"){
-                            // Check the guess
-                            checkGuess()
+                                // Check the guess
+                                checkGuess()
                         }
                     }
                     
                     Section {
-                        Text("History:\(theUserGuess)")
-                    }
+                        Text("Best Score: \(theUserGuess)")
+                }
+            }
+        }
                     
                     
                     // Only show output once input has been provided
@@ -61,14 +70,10 @@ struct ContentView: View {
                         }
                     }
                 }
-                Spacer()
-                
-            }
             .navigationTitle("Guessing Game")
+                Spacer()
         }
-    
-    }
-    
+
     //Check what the user guessed against the target
     func checkGuess() {
         
@@ -107,6 +112,8 @@ struct ContentView: View {
         
         // The new game... is not over
         gameOver = false
+        
+        //Leave the best score
         
     }
 }
