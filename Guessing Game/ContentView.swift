@@ -21,6 +21,12 @@ struct ContentView: View {
     //Keep track of whether the game is over
     @State private var gameOver = false
     
+    //Best Score
+    @State private var bestScore = 0
+    
+    //Current Score
+    @State private var currentScore = 0
+    
     
     var body: some View {
         
@@ -29,33 +35,24 @@ struct ContentView: View {
                 Form {
                     
                     Section {
-                        Text("Guessing Game")
-                            .font(.title)
-                    }
-                    
-                    
-                    Section {
                         Text("I'm thinking of a number between 1 and 100. Guess what it is!")
                             .font(.title3)
-    
+                        
                         TextField("Enter your guess here", text: $theUserGuess)
                             .keyboardType(.decimalPad)
                     }
                     
                     Section {
                         Button("                        Submit Guess"){
-                                // Check the guess
-                                checkGuess()
+                            // Check the guess
+                            checkGuess()
                         }
                     }
                     
                     Section {
-                        Text("Best Score: \(theUserGuess)")
-                }
-            }
-        }
-                    
-                    
+                        Text("Current score: \(currentScore)")
+                        Text("Best Score: ")
+                    }
                     // Only show output once input has been provided
                     if theUserGuess.count > 0 {
                         
@@ -70,10 +67,11 @@ struct ContentView: View {
                         }
                     }
                 }
+            }
             .navigationTitle("Guessing Game")
-                Spacer()
         }
-
+    }
+    
     //Check what the user guessed against the target
     func checkGuess() {
         
@@ -93,10 +91,12 @@ struct ContentView: View {
         
         if givenInteger > target{
             feedback = "Guess lower."
+            currentScore += 1
         }
         
         if givenInteger < target{
             feedback = "Guess higher."
+            currentScore += 1
         }
     }
     
@@ -113,7 +113,6 @@ struct ContentView: View {
         // The new game... is not over
         gameOver = false
         
-        //Leave the best score
         
     }
 }
