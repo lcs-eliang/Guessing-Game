@@ -51,7 +51,7 @@ struct ContentView: View {
                     
                     Section {
                         Text("Current score: \(currentScore)")
-                        Text("Best Score: ")
+                        Text("Best Score: \(currentScore)")
                     }
                     // Only show output once input has been provided
                     if theUserGuess.count > 0 {
@@ -87,6 +87,9 @@ struct ContentView: View {
         if givenInteger == target{
             feedback = "You guessed it!"
             gameOver = true
+            if currentScore < bestScore {
+                currentScore = bestScore
+            }
         }
         
         if givenInteger > target{
@@ -107,13 +110,16 @@ struct ContentView: View {
         target = Int.random(in: 1...100)
         
         // Clear out the old feedback from the prior round
-        theUserGuess = ""
+       
         feedback = ""
         
         // The new game... is not over
         gameOver = false
         
+        //Reset current socre
+        currentScore = 0
         
+       
     }
 }
 
